@@ -1,8 +1,8 @@
 import React from "react";
 import { JournalLayout } from "../layout/JournalLayout";
-import { NoteView, NothingSelectedView } from "../view/index";
 import { IconButton } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
+import { NoteView, NothingSelectedView } from "../view/index";
 
 export const JournalPage = () => {
   return (
