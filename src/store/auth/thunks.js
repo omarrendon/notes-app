@@ -6,7 +6,6 @@ import { checkingCredentials, login, logout } from "./AuthSlice";
 
 export const checkingAuthentication = (email, password) => {
   return async dispatch => {
-    console.log({ email, password });
     dispatch(checkingCredentials());
   };
 };
@@ -29,12 +28,15 @@ export const startCreatingUserEmailPassword = ({
   return async dispatch => {
     dispatch(checkingCredentials());
 
-    console.log({ email, password, displayName });
-    const response = await registerUserWithEmailPassword({
-      email,
-      password,
-      displayName,
-    });
-    console.log({ response });
+    const { ok, uid, photoURL, errorMessage } =
+      await registerUserWithEmailPassword({
+        email,
+        password,
+        displayName,
+      });
+
+    if (!ok) return dispatch(logout({ errorMessage }));
+
+    dispatch(login({ uid, email, displayName, photoURL }));
   };
 };
