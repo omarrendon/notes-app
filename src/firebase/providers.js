@@ -6,6 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { FirebaseAuth } from "./config";
+import { logout } from "../store/auth";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -82,4 +83,8 @@ export const loginWithEmailPassword = async ({ email, password }) => {
       errorMessage: error.message,
     };
   }
+};
+
+export const logoutFirebase = async () => {
+  return await FirebaseAuth.signOut();
 };
