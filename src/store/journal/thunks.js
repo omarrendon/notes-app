@@ -5,6 +5,7 @@ import {
   savingNewNote,
   setActiveNote,
   setNote,
+  setPhotosToActiveNote,
   setSaving,
   updateNote,
 } from "./";
@@ -19,6 +20,7 @@ export const startNewNote = () => {
       title: "",
       body: "",
       date: new Date().getTime(),
+      imageUrls: [],
     };
 
     const doc = await addDoc(
@@ -71,7 +73,13 @@ export const startUploadingFiles = (files = []) => {
   return async dispatch => {
     dispatch(setSaving());
 
-    // files.map()
-    await fileUpload(files[0]);
+    // await fileUpload(files[0]);
+    const fileUploadPromises = [];
+    for (const file of files) {
+      fileUploadPromises.push(fileUpload(file));
+    }
+
+    const response = await Promise.all(fileUploadPromises);
+    dispatch(setPhotosToActiveNote(response));
   };
 };

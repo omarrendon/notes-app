@@ -11,27 +11,26 @@ import { useDispatch } from "react-redux";
 import { setActiveNote } from "../../store/journal";
 
 export const SideBarItem = ({ note }) => {
+  const { title, body, id, date, imageUrls = [] } = note;
   const dispatch = useDispatch();
 
   const newTitle = useMemo(() => {
-    return note.title.length > 17
-      ? note.title.substring(0, 17) + "..."
-      : note.title;
-  }, [note.title]);
+    return title.length > 17 ? title.substring(0, 17) + "..." : title;
+  }, [title]);
 
-  const onSelectActiveNote = note => {
-    dispatch(setActiveNote(note));
+  const onSelectActiveNote = () => {
+    dispatch(setActiveNote({ title, body, id, date, imageUrls }));
   };
 
   return (
-    <ListItem disablePadding onClick={() => onSelectActiveNote(note)}>
-      <ListItemButton>
+    <ListItem disablePadding>
+      <ListItemButton onClick={() => onSelectActiveNote()}>
         <ListItemIcon>
           <TurnedInNot />
         </ListItemIcon>
         <Grid>
           <ListItemText primary={newTitle} />
-          <ListItemText secondary={note.body} />
+          <ListItemText secondary={body} />
         </Grid>
       </ListItemButton>
     </ListItem>
