@@ -8,7 +8,7 @@ import {
   setSaving,
   updateNote,
 } from "./";
-import { loadNotes } from "../../helpers";
+import { fileUpload, loadNotes } from "../../helpers";
 
 export const startNewNote = () => {
   return async (dispatch, getState) => {
@@ -64,5 +64,14 @@ export const startSaveNote = () => {
     );
     await setDoc(firestoreDoc, noteToFireStore);
     dispatch(updateNote(note));
+  };
+};
+
+export const startUploadingFiles = (files = []) => {
+  return async dispatch => {
+    dispatch(setSaving());
+
+    // files.map()
+    await fileUpload(files[0]);
   };
 };
