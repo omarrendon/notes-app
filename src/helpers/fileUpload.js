@@ -1,5 +1,4 @@
 export const fileUpload = async file => {
-  console.log({ file });
   if (!file) throw new Error("The file is missing");
 
   const URL = "https://api.cloudinary.com/v1_1/dv34psubp/upload";
@@ -14,7 +13,6 @@ export const fileUpload = async file => {
       body: formData,
     });
 
-    console.log({ response });
     if (!response.ok) throw new Error("The image could not be loaded");
 
     const imageResponse = await response.json();
