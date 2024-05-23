@@ -1,5 +1,5 @@
 export const fileUpload = async file => {
-  if (!file) throw new Error("The file is missing");
+  if (!file) return null;
 
   const URL = "https://api.cloudinary.com/v1_1/dv34psubp/upload";
 
@@ -20,6 +20,6 @@ export const fileUpload = async file => {
     return imageResponse;
   } catch (error) {
     console.log("Error", error);
-    throw new Error(error.message);
+    return null;
   }
 };
